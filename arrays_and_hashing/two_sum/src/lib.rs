@@ -2,22 +2,19 @@ use std::collections::HashMap;
 
 pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
     let mut map = HashMap::new();
-    let mut result = vec![];
 
     for i in 0..nums.len() {
         let num = nums[i];
 
         if map.get(&num).is_some() {
-            result.push(*map.get(&num).unwrap() as i32);
-            result.push(i as i32);
-            break;
+            return vec![*map.get(&num).unwrap() as i32, i as i32];
         } else {
             let inverse = target - num;
             map.insert(inverse, i);
         }
     }
 
-    result
+    vec![]
 }
 
 #[cfg(test)]
