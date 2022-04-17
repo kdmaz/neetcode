@@ -13,7 +13,7 @@ pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
         bucket.push(str.clone());
     }
 
-    map.into_values().collect::<Vec<Vec<String>>>()
+    map.into_values().collect()
 }
 
 #[cfg(test)]
