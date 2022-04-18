@@ -1,23 +1,16 @@
 pub fn product_except_self(nums: Vec<i32>) -> Vec<i32> {
-    let mut prefix = vec![nums[0]];
-    let mut postfix = vec![nums[nums.len() - 1]];
-    let mut result = vec![];
+    let mut result = Vec::with_capacity(nums.len());
 
-    for i in 1..nums.len() {
-        prefix.push(prefix[i - 1] * nums[i]);
-        postfix.push(postfix[i - 1] * nums[nums.len() - 1 - i]);
-    }
-    postfix.reverse();
-
+    let mut prefix = 1;
     for i in 0..nums.len() {
-        let before = if i == 0 { 1 } else { prefix[i - 1] };
-        let after = if i == nums.len() - 1 {
-            1
-        } else {
-            postfix[i + 1]
-        };
+        result.push(prefix);
+        prefix *= nums[i];
+    }
 
-        result.push(before * after);
+    let mut postfix = 1;
+    for i in (0..nums.len()).rev() {
+        result[i] *= postfix;
+        postfix *= nums[i];
     }
 
     result
