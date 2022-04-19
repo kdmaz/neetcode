@@ -12,13 +12,20 @@ pub fn is_valid_sudoku(board: Vec<Vec<char>>) -> bool {
                 continue;
             }
 
-            // since c and r are usize, this truncates them effectively rounding down to floor
-            // ex. r = 1, c = 1
-            // 1 / 3 = 0
-            // 1 / 3 = 0, 0 * 3 = 0,
-            // 0 + 0 = 0
-            // so row 1, col 1 is in box index 0
-            let b = c / 3 + ((r / 3) * 3);
+            // since c and r are both usize, dividing truncates them effectively rounding down to floor
+            let box_col = c / 3;
+            let box_row = r / 3;
+            // boxes by index:
+            // [
+            //    0, 1, 2
+            //    3, 4, 5
+            //    6, 7, 8
+            // ]
+            //
+            // if you mulitply by the row by 3 and add the column, can tell what index the box belongs to
+            // ex. r = 1, c = 2
+            // 2 + (1 * 3) = 5
+            let b = box_col + (box_row * 3);
             if rows[r].contains(&cell) || cols[c].contains(&cell) || boxes[b].contains(&cell) {
                 return false;
             }
