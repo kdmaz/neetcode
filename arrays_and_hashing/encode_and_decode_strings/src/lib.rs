@@ -13,11 +13,12 @@ pub fn decode(str: String) -> Vec<String> {
     let mut i = 0;
 
     while i < str.len() {
+        // start index of decoded string
         let start = i + 1;
-        let decoded_str_len = str[i..start].parse::<usize>().unwrap();
-        let decoded_str = str[start..start + decoded_str_len].to_owned();
-        buffer.push(decoded_str);
-        i = start + decoded_str_len;
+        // length of decoded string
+        let len = str[i..start].parse::<usize>().unwrap();
+        buffer.push(str[start..start + len].to_owned());
+        i += len + 1;
     }
 
     buffer
