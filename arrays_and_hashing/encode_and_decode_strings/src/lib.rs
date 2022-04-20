@@ -9,26 +9,18 @@ pub fn encode(strs: Vec<String>) -> String {
 }
 
 pub fn decode(str: String) -> Vec<String> {
-    let mut strs_buffer = vec![];
-    let mut str_buffer = String::new();
+    let mut buffer = vec![];
+    let mut i = 0;
 
-    let mut word_end_index = 0;
-
-    for (i, c) in str.chars().enumerate() {
-        if i < word_end_index {
-            str_buffer.push(c);
-        } else {
-            let word_len = c.to_digit(10).unwrap() as usize;
-            word_end_index = i + 1 + word_len;
-        }
-
-        if word_end_index as u32 - i as u32 == 1 {
-            strs_buffer.push(str_buffer.clone());
-            str_buffer.clear();
-        }
+    while i < str.len() {
+        let start = i + 1;
+        let decoded_str_len = str[i..start].parse::<usize>().unwrap();
+        let decoded_str = str[start..start + decoded_str_len].to_owned();
+        buffer.push(decoded_str);
+        i = start + decoded_str_len;
     }
 
-    strs_buffer
+    buffer
 }
 
 #[cfg(test)]
