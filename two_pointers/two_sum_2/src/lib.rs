@@ -1,5 +1,20 @@
 pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
-    todo!();
+    let mut l = 0;
+    let mut r = numbers.len() - 1;
+
+    loop {
+        let sum = numbers[l] + numbers[r];
+
+        if sum > target {
+            r -= 1;
+        } else if sum < target {
+            l += 1;
+        } else {
+            break;
+        }
+    }
+
+    vec![l as i32 + 1, r as i32 + 1]
 }
 
 #[cfg(test)]
