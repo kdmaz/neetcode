@@ -1,11 +1,13 @@
+fn is_alpha(l: &str) -> bool {
+    let b = l.as_bytes()[0];
+    let is_num = b >= "0".as_bytes()[0] && b <= "9".as_bytes()[0];
+    let is_lowercase_letter = b >= "a".as_bytes()[0] && b <= "z".as_bytes()[0];
+    is_num || is_lowercase_letter
+}
+
 pub fn is_palindrome(s: String) -> bool {
     let mut l = 0;
     let mut r = s.len() - 1;
-
-    let is_alpha = |l: &str| {
-        let b = l.as_bytes()[0];
-        (b >= 48 && b <= 57) || (b >= 97 && b <= 122)
-    };
 
     while l < r {
         let left_char = &s[l..l + 1].to_lowercase();
@@ -15,7 +17,6 @@ pub fn is_palindrome(s: String) -> bool {
         }
 
         let right_char = &s[r..r + 1].to_lowercase();
-        dbg!(&is_alpha(right_char));
         if !is_alpha(right_char) {
             r -= 1;
             continue;
