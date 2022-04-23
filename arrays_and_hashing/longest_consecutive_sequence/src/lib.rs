@@ -2,7 +2,7 @@ use std::cmp::max;
 use std::collections::HashSet;
 
 pub fn longest_consecutive(nums: Vec<i32>) -> i32 {
-    let set: HashSet<i32> = HashSet::from_iter(nums);
+    let set = nums.into_iter().collect::<HashSet<i32>>();
     let mut longest = 0;
 
     for num in &set {
