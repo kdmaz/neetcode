@@ -1,5 +1,26 @@
+use std::cmp::max;
+use std::collections::HashSet;
+
 pub fn longest_consecutive(nums: Vec<i32>) -> i32 {
-    todo!();
+    let set: HashSet<i32> = HashSet::from_iter(nums);
+    let mut longest = 0;
+
+    for num in &set {
+        // has left value
+        if set.contains(&(num - 1)) {
+            continue;
+        }
+
+        let mut count = 1;
+        // has right value
+        while set.contains(&(num + count)) {
+            count += 1;
+        }
+
+        longest = max(longest, count);
+    }
+
+    longest
 }
 
 #[cfg(test)]
