@@ -1,5 +1,25 @@
 pub fn trap(height: Vec<i32>) -> i32 {
-    todo!();
+    if height.is_empty() {
+        return 0;
+    }
+
+    let (mut l, mut r) = (0, height.len() - 1);
+    let (mut max_l, mut max_r) = (height[l], height[r]);
+    let mut res = 0;
+
+    while l < r {
+        if max_l < max_r {
+            l += 1;
+            max_l = std::cmp::max(max_l, height[l]);
+            res += max_l - height[l];
+        } else {
+            r -= 1;
+            max_r = std::cmp::max(max_r, height[r]);
+            res += max_r - height[r];
+        }
+    }
+
+    res
 }
 
 #[cfg(test)]
