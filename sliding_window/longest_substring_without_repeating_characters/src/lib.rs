@@ -1,5 +1,24 @@
+use std::cmp::max;
+use std::collections::HashSet;
+
 pub fn length_of_longest_substring(s: String) -> i32 {
-    todo!();
+    let mut longest = 0;
+    let mut set = HashSet::new();
+    let mut l = 0;
+
+    for r in 0..s.len() {
+        let c = &s[r..r + 1];
+
+        while set.contains(c) {
+            set.remove(&s[l..l + 1]);
+            l += 1;
+        }
+
+        set.insert(c);
+        longest = max(longest, set.len());
+    }
+
+    longest as i32
 }
 
 #[cfg(test)]
