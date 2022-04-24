@@ -1,5 +1,22 @@
+use std::cmp::{max, min};
+
 pub fn max_area(height: Vec<i32>) -> i32 {
-    todo!();
+    let mut highest_area = 0;
+
+    let (mut l, mut r) = (0, height.len() - 1);
+
+    while l < r {
+        let area = min(height[l], height[r]) * (r - l) as i32;
+        highest_area = max(highest_area, area);
+
+        if height[l] < height[r] {
+            l += 1;
+        } else {
+            r -= 1;
+        }
+    }
+
+    highest_area
 }
 
 #[cfg(test)]
