@@ -17,4 +17,16 @@ mod tests {
         let (s1, s2) = ("ab", "eidboaoo");
         assert_eq!(check_inclusion(s1.into(), s2.into()), false);
     }
+
+    #[test]
+    fn example_3() {
+        let (s1, s2) = ("hello", "ooolleoooleh");
+        assert_eq!(check_inclusion(s1.into(), s2.into()), false);
+    }
+
+    #[test]
+    fn example_4() {
+        let (s1, s2) = ("adc", "dcda");
+        assert_eq!(check_inclusion(s1.into(), s2.into()), true);
+    }
 }
