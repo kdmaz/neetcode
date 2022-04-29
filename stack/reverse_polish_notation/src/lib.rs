@@ -1,27 +1,27 @@
 pub fn eval_rpn(tokens: Vec<String>) -> i32 {
-    let mut nums = vec![];
-    let perform_operation = |operator: String, a, b| match operator.as_str() {
-        "+" => a + b,
-        "-" => a - b,
-        "*" => a * b,
-        "/" => a / b,
-        _ => panic!("invalid operator"),
-    };
+    let mut stack = vec![];
 
     for t in tokens {
         let parsed_num = t.parse::<i32>();
 
         if parsed_num.is_ok() {
-            nums.push(parsed_num.unwrap());
+            stack.push(parsed_num.unwrap());
             continue;
         }
 
-        let b = nums.pop().unwrap();
-        let a = nums.pop().unwrap();
-        nums.push(perform_operation(t, a, b))
+        let b = stack.pop().unwrap();
+        let a = stack.pop().unwrap();
+        let res = match t.as_str() {
+            "+" => a + b,
+            "-" => a - b,
+            "*" => a * b,
+            "/" => a / b,
+            _ => panic!("invalid operator"),
+        };
+        stack.push(res);
     }
 
-    *nums.last().unwrap()
+    *stack.last().unwrap()
 }
 
 #[cfg(test)]
