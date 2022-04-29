@@ -12,19 +12,14 @@ impl MinStack {
     }
 
     pub fn push(&mut self, val: i32) {
-        if self.stack.is_empty() {
+        if self.stack.is_empty() || val <= self.get_min() {
             self.min.push(val);
-        } else {
-            if val <= self.get_min() {
-                self.min.push(val);
-            }
         }
         self.stack.push(val);
     }
 
     pub fn pop(&mut self) {
-        let min = self.stack.pop();
-        if min == Some(self.get_min()) {
+        if self.stack.pop() == Some(self.get_min()) {
             self.min.pop();
         }
     }
