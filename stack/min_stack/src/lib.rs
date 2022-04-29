@@ -12,16 +12,18 @@ impl MinStack {
     }
 
     pub fn push(&mut self, val: i32) {
-        if self.stack.is_empty() || val <= self.get_min() {
-            self.min.push(val);
-        }
+        let min = if self.min.is_empty() {
+            val
+        } else {
+            std::cmp::min(self.get_min(), val)
+        };
+        self.min.push(min);
         self.stack.push(val);
     }
 
     pub fn pop(&mut self) {
-        if self.stack.pop() == Some(self.get_min()) {
-            self.min.pop();
-        }
+        self.stack.pop();
+        self.min.pop();
     }
 
     pub fn top(&self) -> i32 {
