@@ -1,8 +1,7 @@
 pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
-    let mut l = 0;
-    let mut r = numbers.len() - 1;
+    let (mut l, mut r) = (0, numbers.len() - 1);
 
-    loop {
+    while l < r {
         let sum = numbers[l] + numbers[r];
 
         if sum > target {
@@ -10,11 +9,11 @@ pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
         } else if sum < target {
             l += 1;
         } else {
-            break;
+            return vec![l as i32 + 1, r as i32 + 1];
         }
     }
 
-    vec![l as i32 + 1, r as i32 + 1]
+    vec![]
 }
 
 #[cfg(test)]
