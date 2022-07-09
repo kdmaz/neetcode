@@ -1,28 +1,26 @@
-fn is_alpha(l: &str) -> bool {
-    let b = l.as_bytes()[0];
-    let is_num = b >= "0".as_bytes()[0] && b <= "9".as_bytes()[0];
-    let is_lowercase_letter = b >= "a".as_bytes()[0] && b <= "z".as_bytes()[0];
-    is_num || is_lowercase_letter
+fn is_ascii_alphanumeric(byte: u8) -> bool {
+    let upper = byte >= b'A' && byte <= b'Z';
+    let lower = byte >= b'a' && byte <= b'z';
+    let num = byte >= b'0' && byte <= b'9';
+    upper || lower || num
 }
 
 pub fn is_palindrome(s: String) -> bool {
-    let mut l = 0;
-    let mut r = s.len() - 1;
+    let (mut l, mut r) = (0, s.len() - 1);
+    let s = s.as_bytes();
 
     while l < r {
-        let left_char = &s[l..l + 1].to_lowercase();
-        if !is_alpha(left_char) {
+        if !is_ascii_alphanumeric(s[l]) {
             l += 1;
             continue;
         }
 
-        let right_char = &s[r..r + 1].to_lowercase();
-        if !is_alpha(right_char) {
+        if !is_ascii_alphanumeric(s[r]) {
             r -= 1;
             continue;
         }
 
-        if left_char != right_char {
+        if (s[l] as char).to_ascii_lowercase() != (s[r] as char).to_ascii_lowercase() {
             return false;
         }
 
