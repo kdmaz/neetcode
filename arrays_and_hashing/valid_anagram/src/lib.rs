@@ -5,17 +5,16 @@ pub fn is_anagram(s: String, t: String) -> bool {
         return false;
     }
 
-    let (mut s_map, mut t_map) = (HashMap::new(), HashMap::new());
-    let (s_bytes, t_bytes) = (s.as_bytes(), t.as_bytes());
+    let mut map = HashMap::new();
+    let (s, t) = (s.as_bytes(), t.as_bytes());
 
     for i in 0..s.len() {
-        *s_map.entry(s_bytes[i] as char).or_insert(0) += 1;
-        *t_map.entry(t_bytes[i] as char).or_insert(0) += 1;
+        *map.entry(s[i]).or_insert(0) += 1;
+        *map.entry(t[i]).or_insert(0) -= 1;
     }
 
-    for i in 0..s.len() {
-        let c = s_bytes[i] as char;
-        if s_map.get(&c) != t_map.get(&c) {
+    for value in map.values() {
+        if *value != 0 {
             return false;
         }
     }
